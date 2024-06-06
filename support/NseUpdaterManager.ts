@@ -1,17 +1,12 @@
-import { FileManager } from './FileManager';
-import {
-  BUNDLE_SHORT_VERSION_TEMPLATE_REGEX,
-  BUNDLE_VERSION_TEMPLATE_REGEX,
-  GROUP_IDENTIFIER_TEMPLATE_REGEX,
-  NSE_TARGET_NAME
-} from './iosConstants';
+import { FileManager } from "./FileManager";
+import { BUNDLE_SHORT_VERSION_TEMPLATE_REGEX, BUNDLE_VERSION_TEMPLATE_REGEX, GROUP_IDENTIFIER_TEMPLATE_REGEX, NSE_TARGET_NAME } from "./iosConstants";
 
-// project `ios/OneSignalNotificationServiceExtension` directory
-const entitlementsFileName =`OneSignalNotificationServiceExtension.entitlements`;
-const plistFileName = `OneSignalNotificationServiceExtension-Info.plist`;
+// project `ios/NotifeeNotificationServiceExtension` directory
+const entitlementsFileName = `NotifeeNotificationServiceExtension.entitlements`;
+const plistFileName = `NotifeeNotificationServiceExtension-Info.plist`;
 
 export default class NseUpdaterManager {
-  private nsePath = '';
+  private nsePath = "";
   constructor(iosPath: string) {
     this.nsePath = `${iosPath}/${NSE_TARGET_NAME}`;
   }

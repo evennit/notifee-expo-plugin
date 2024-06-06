@@ -1,7 +1,7 @@
 {
-  "name": "onesignal-expo-plugin",
-  "version": "2.0.3",
-  "description": "The OneSignal Expo plugin allows you to use OneSignal without leaving the managed workflow. Developed in collaboration with SweetGreen.",
+  "name": "notifee-expo-plugin",
+  "version": "1.0.0",
+  "description": "This is an adaptation of the OneSignal Expo Plugin in order to use it with Notifee instead.",
   "main": "./app.plugin.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,13 +9,9 @@
     "lint": "eslint . --ext .ts",
     "prepare": "yarn run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/OneSignal/onesignal-expo-plugin.git"
-  },
   "keywords": [
     "expo",
-    "onesignal",
+    "notifee",
     "push",
     "notifications",
     "EAS"
@@ -26,13 +22,10 @@
     "Rodrigo Gomez-Palacio",
     "Charlie Cruzan",
     "Wojciech Kozyra",
-    "Brian Smith"
+    "Brian Smith",
+    "Kevin Pugliese"
   ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/OneSignal/onesignal-expo-plugin/issues"
-  },
-  "homepage": "https://github.com/OneSignal/onesignal-expo-plugin#readme",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
