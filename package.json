@@ -1,13 +1,17 @@
 {
   "name": "notifee-expo-plugin",
   "version": "1.0.0",
-  "description": "This is an adaptation of the OneSignal Expo Plugin in order to use it with Notifee instead.",
+  "description": "This is an adaptation of the OneSignal Expo Plugin in order to use it with Notifee instead ALL THE WHILE STAYING IN EXPO MANAGED WORKFLOW!!",
   "main": "./app.plugin.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "yarn run lint && rm -rf build && tsc && cp -a support/serviceExtensionFiles build/support/",
     "lint": "eslint . --ext .ts",
     "prepare": "yarn run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evennit/notifee-expo-plugin.git"
   },
   "keywords": [
     "expo",
@@ -16,7 +20,7 @@
     "notifications",
     "EAS"
   ],
-  "author": "rgomezp",
+  "author": "kevpug",
   "contributors": [
     "Karen Grigoryan",
     "Rodrigo Gomez-Palacio",
@@ -26,6 +30,10 @@
     "Kevin Pugliese"
   ],
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evennit/notifee-expo-plugin/issues"
+  },
+  "homepage": "https://github.com/evennit/notifee-expo-plugin#readme",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
