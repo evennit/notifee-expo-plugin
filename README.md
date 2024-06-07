@@ -4,6 +4,20 @@ This fork was mainly made to automatically add what is necessary to expo managed
 
 Everything is handled for you, the only change from onesignal-expo-plugin is the name of the package and in the options you pass in the app config, there's now enableCommunicationNotifications (which defaults to false). This option will add what is necessary to have communication notifications like mentioned [HERE](https://github.com/invertase/notifee/pull/526)
 
+npm i @evennit/notifee-expo-plugin
+
+## Install
+
+You need both the `@evennit/notifee-expo-plugin` _and_ the `@notifee/react-native` npm package.
+
+```sh
+# npm
+npm install @evennit/notifee-expo-plugin
+
+# yarn
+yarn add @evennit/notifee-expo-plugin
+```
+
 **app.json**
 
 ```json

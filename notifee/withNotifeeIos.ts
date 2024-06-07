@@ -141,7 +141,9 @@ const withNotifeePodfile: ConfigPlugin<NotifeePluginProps> = (config) => {
 
 const withNotifeeNSE: ConfigPlugin<NotifeePluginProps> = (config, props) => {
   // support for monorepos where node_modules can be above the project directory.
-  const pluginDir = require.resolve("notifee-expo-plugin/package.json");
+  const pluginDir = require.resolve(
+    "@evennit/notifee-expo-plugin/package.json"
+  );
   const sourceDir = path.join(
     pluginDir,
     "../build/support/serviceExtensionFiles/"

@@ -1,6 +1,6 @@
 {
-  "name": "notifee-expo-plugin",
-  "version": "1.0.0",
+  "name": "@evennit/notifee-expo-plugin",
+  "version": "2.0.0",
   "description": "This is an adaptation of the OneSignal Expo Plugin in order to use it with Notifee instead ALL THE WHILE STAYING IN EXPO MANAGED WORKFLOW!!",
   "main": "./app.plugin.js",
   "scripts": {
