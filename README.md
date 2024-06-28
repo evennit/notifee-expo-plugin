@@ -1,10 +1,8 @@
-<h1 align="center">Welcome to the notfiee-expo-plugin 👋</h1>
+<h1 align="center">Welcome to the notifee-expo-plugin 👋</h1>
 
-This fork was mainly made to automatically add what is necessary to expo managed apps to have a Notification Service Expansion and the ability to show communication notifications even when low power mode is on (on IOS devices low power mode desactivates the execution of the background handler).
+This fork was mainly made to automatically add what is necessary for expo managed apps to have a Notification Service Expansion and the ability to show communication notifications even when low power mode is on (on IOS devices low power mode desactivates the execution of the background handler).
 
-Everything is handled for you, the only change from onesignal-expo-plugin is the name of the package and in the options you pass in the app config, there's now enableCommunicationNotifications (which defaults to false). This option will add what is necessary to have communication notifications like mentioned [HERE](https://github.com/invertase/notifee/pull/526)
-
-npm i @evennit/notifee-expo-plugin
+Everything is handled for you, the only change from onesignal-expo-plugin is the name of the package and also there's a new option you can pass in the app config: enableCommunicationNotifications (which defaults to false). This option will add what is necessary to have communication notifications like mentioned [HERE](https://github.com/invertase/notifee/pull/526)
 
 ## Install
 
