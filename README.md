@@ -63,6 +63,18 @@ app.config.json
 }
 ```
 
+## 🔨 Rebuild your app 🔨
+
+After installing and adding the plugin to your project's Expo config plugin array, you need to rebuild your ios and android apps:
+
+```sh
+npx expo prebuild
+```
+
+Now you should be good to go!
+
+## Props
+
 | Property                                     | Description                                                                                                                                                                                                                                                                                              |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `apsEnvMode: string` (required)              | Sets the APS Environment Entitlement. Determines whether to use the development or production Apple Push Notification service (APNs). <br/> Values: `"development"` or `"production"`                                                                                                                    |
