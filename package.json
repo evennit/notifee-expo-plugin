@@ -1,6 +1,6 @@
 {
   "name": "@evennit/notifee-expo-plugin",
-  "version": "1.0.0",
+  "version": "3.6.9",
   "description": "This plugin will allow you to use Notifee with a notification service extension without needing to eject from Expo managed workflow.",
   "main": "./index.js",
   "scripts": {
