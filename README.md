@@ -83,6 +83,7 @@ Now you should be good to go!
 | `enableCommunicationNotifications?: boolean` | Enables communication notifications, which adds the necessary configurations for communication notifications as mentioned in https://github.com/invertase/notifee/pull/526.                                                                                                                              |
 | `appleDevTeamId?: string`                    | Automatically signs the app and the notification service extension targets with the provided Apple developer team ID.                                                                                                                                                                                    |
 | `customNotificationServiceFilePath?: string` | Specifies the path to a custom notification service file, which should already include the necessary configurations for Notifee along with any additional customizations. You can build upon the default NotificationService.m file of this package. <br/> Ex: `./assets/notifee/NotificationService.m`. |
+| `backgroundModes?: string[]`                 | Specifies the background modes to enable for the app. If not provided, the default background mode is used `["remote-notification"]`. IOS only.                                                                                                                                                          |
 
 ## 🤩 STARS 🤩
 
