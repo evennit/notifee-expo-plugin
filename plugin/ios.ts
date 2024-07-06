@@ -184,11 +184,14 @@ const addNotificationServiceGroup: ConfigPlugin<NotifeeExpoPluginProps> = (c) =>
  * @param {object} c - The Expo configuration object.
  * @returns {object} - The updated Expo configuration object with added background modes.
  */
-const addBackgroundModes: ConfigPlugin<NotifeeExpoPluginProps> = (c) => {
+const addBackgroundModes: ConfigPlugin<NotifeeExpoPluginProps> = (c, props) => {
   return withInfoPlist(c, (nc) => {
+    //Added this condition so it doesn't add background modes capability without anything selected when the user wants no background modes.
+    if (props.backgroundModes && props.backgroundModes.length === 0) return nc;
     if (!Array.isArray(nc.modResults.UIBackgroundModes)) nc.modResults.UIBackgroundModes = [];
-    for (const mode of BACKGROUND_MODES_TO_ENABLE) if (!nc.modResults.UIBackgroundModes.includes(mode)) nc.modResults.UIBackgroundModes.push(mode);
-    log("Added background modes (" + BACKGROUND_MODES_TO_ENABLE.join(", ") + ")");
+    if (!props.backgroundModes) props.backgroundModes = BACKGROUND_MODES_TO_ENABLE;
+    for (const mode of props.backgroundModes) if (!nc.modResults.UIBackgroundModes.includes(mode)) nc.modResults.UIBackgroundModes.push(mode);
+    log("Added background modes (" + props.backgroundModes.join(", ") + ")");
     return nc;
   });
 };

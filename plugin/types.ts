@@ -43,6 +43,14 @@ export type NotifeeExpoPluginProps = {
   iosDeploymentTarget: string;
 
   /**
+   * Specifies the background modes to enable for the app.
+   * If not provided, the default value will be: ["remote-notification"].
+   * On the other hand, an empty array [] will signal to the plugin to skip the backgroundModes step completly.
+   * See possibly values here: https://developer.apple.com/documentation/bundleresources/information_property_list/uibackgroundmodes
+   */
+  backgroundModes?: string[];
+
+  /**
    * Enables communication notifications, which adds the necessary configurations
    * for communication notifications as mentioned in https://github.com/invertase/notifee/pull/526.
    */
