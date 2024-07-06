@@ -46,7 +46,7 @@ export type NotifeeExpoPluginProps = {
    * Specifies the background modes to enable for the app.
    * If not provided, the default value will be: ["remote-notification"].
    * On the other hand, an empty array [] will signal to the plugin to skip the backgroundModes step completly.
-   * See possibly values here: https://developer.apple.com/documentation/bundleresources/information_property_list/uibackgroundmodes
+   * See possible values here: https://developer.apple.com/documentation/bundleresources/information_property_list/uibackgroundmodes
    */
   backgroundModes?: string[];
 
