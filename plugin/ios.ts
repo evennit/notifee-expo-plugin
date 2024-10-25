@@ -59,7 +59,7 @@ const addNotifeeToPodfile: ConfigPlugin<NotifeeExpoPluginProps> = (c) => {
 const addNotificationServiceFilesToProject: ConfigPlugin<NotifeeExpoPluginProps> = (c, props) => {
   const serviceExtensionFilesFolderPath = path.join(
     path.resolve("node_modules/" + PACKAGE_NAME + "/package.json"),
-    "../dist/notificationExtensionsFiles/",
+    "../dist/ios-notification-service-files/",
   );
 
   const updatedConfig = withDangerousMod(c, [

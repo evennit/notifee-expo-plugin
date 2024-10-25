@@ -5,6 +5,7 @@
 ### Changes
 
 - Added app.plugin.js to fix expo doctor error & Expo SDK 52 prebuild support
+- Renamed folder notificationExtensionsFiles to ios-notification-service-files to follow the standard
 
 ## `[3.7.0]` - 2024-07-05
 
