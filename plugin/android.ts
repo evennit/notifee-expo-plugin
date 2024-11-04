@@ -1,9 +1,10 @@
 import { NotifeeAndroidIcon, NotifeeExpoPluginProps } from "./types";
 import { ConfigPlugin, withDangerousMod } from "@expo/config-plugins";
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { copyFileSync, existsSync, mkdirSync, writeFileSync } from "fs";
 import * as path from "path";
 import { LARGE_ICONS_SIZES, RES_PATH, SMALL_ICONS_SIZES } from "./config";
 import { generateImageAsync } from "@expo/image-utils";
+import { basename, resolve } from "path";
 
 /**
  * Adds Notifee icons to the appropriate Android resource folders.
@@ -36,6 +37,57 @@ const addIconsToFolders: ConfigPlugin<NotifeeExpoPluginProps> = (config, props) 
       return config;
     },
   ]);
+};
+
+/**
+ * Adds Notifee icons to the appropriate Android resource folders.
+ *
+ * @param config - The Expo configuration object.
+ * @param props - The properties required for configuring Notifee-Expo-Plugin.
+ *
+ * @returns The updated Expo configuration object.
+ */
+const addSoundsToFolder: ConfigPlugin<NotifeeExpoPluginProps> = (config, props) => {
+  if (!props.androidSounds || props.androidSounds.length === 0) return config;
+
+  return withDangerousMod(config, [
+    "android",
+    async (config) => {
+      const rootPath = config.modRequest.projectRoot;
+      if (!Array.isArray(props.androidSounds)) {
+        throw new Error(
+          `An error occurred while configuring Android notifications. Must provide an array of sound files in your app config, found ${typeof props.androidSounds}.`,
+        );
+      }
+      for (const soundFileRelativePath of props.androidSounds) {
+        saveSound(soundFileRelativePath, rootPath);
+      }
+      return config;
+    },
+  ]);
+};
+
+/**
+ * Saves the provided icon to the appropriate Android resource folders.
+ *
+ * @param soundFileRelativePath - Relative path of the sound file you wish to add.
+ * @param rootPath - The root path of the project.
+ */
+const saveSound = async (soundFileRelativePath: string, rootPath: string) => {
+  const rawResourcesPath = resolve(rootPath, RES_PATH, "raw");
+  const inputFilename = basename(soundFileRelativePath);
+
+  if (inputFilename) {
+    try {
+      const sourceFilepath = resolve(rootPath, soundFileRelativePath);
+      const destinationFilepath = resolve(rawResourcesPath, inputFilename);
+
+      createFoldersIfNotExist(rawResourcesPath);
+      copyFileSync(sourceFilepath, destinationFilepath);
+    } catch (e) {
+      throw new Error("An error occurred while configuring Android notifications. Encountered an issue copying Android notification sounds: " + e);
+    }
+  }
 };
 
 /**
@@ -91,4 +143,5 @@ const resizeImgUsingExpoImageUtils = async (icon: NotifeeAndroidIcon, rootPath: 
 
 export default {
   addIconsToFolders,
+  addSoundsToFolder,
 };

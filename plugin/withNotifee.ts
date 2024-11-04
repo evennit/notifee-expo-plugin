@@ -17,6 +17,7 @@ const withNotifee: ConfigPlugin<NotifeeExpoPluginProps> = (c, props) => {
 
   /** Android Configuration */
   c = NotifeeAndroid.addIconsToFolders(c, props);
+  c = NotifeeAndroid.addSoundsToFolder(c, props);
 
   /** iOS Configuration */
   c = NotifeeIos.setAPSEnvironment(c, props);
