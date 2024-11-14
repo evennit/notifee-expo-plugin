@@ -37,6 +37,12 @@ export type NotifeeExpoPluginProps = {
   androidIcons?: NotifeeAndroidIcon[];
 
   /**
+   * Relative path to the sound files to be used for the notification. Relative to where the
+   * app config file is located.
+   */
+  sounds?: string[];
+
+  /**
    * Sets the deployment target of the notification service extension for iOS.
    * This should match the deployment target of the main app.
    */

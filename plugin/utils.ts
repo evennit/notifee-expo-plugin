@@ -24,6 +24,8 @@ export const validateProps = (props: NotifeeExpoPluginProps) => {
 
   if (props.androidIcons && !Array.isArray(props.androidIcons)) throwError("'androidIcons' needs to be an array!");
 
+  if (props.sounds && !Array.isArray(props.sounds)) throwError("'sounds' needs to be an array");
+
   if (props.backgroundModes && !Array.isArray(props.backgroundModes)) throwError("'backgroundModes' needs to be an array!");
 };
 
