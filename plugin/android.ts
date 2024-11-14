@@ -48,18 +48,18 @@ const addIconsToFolders: ConfigPlugin<NotifeeExpoPluginProps> = (config, props) 
  * @returns The updated Expo configuration object.
  */
 const addSoundsToFolder: ConfigPlugin<NotifeeExpoPluginProps> = (config, props) => {
-  if (!props.androidSounds || props.androidSounds.length === 0) return config;
+  if (!props.sounds || props.sounds.length === 0) return config;
 
   return withDangerousMod(config, [
     "android",
     async (config) => {
       const rootPath = config.modRequest.projectRoot;
-      if (!Array.isArray(props.androidSounds)) {
+      if (!Array.isArray(props.sounds)) {
         throw new Error(
-          `An error occurred while configuring Android notifications. Must provide an array of sound files in your app config, found ${typeof props.androidSounds}.`,
+          `An error occurred while configuring Android notifications. Must provide an array of sound files in your app config, found ${typeof props.sounds}.`,
         );
       }
-      for (const soundFileRelativePath of props.androidSounds) {
+      for (const soundFileRelativePath of props.sounds) {
         saveSound(soundFileRelativePath, rootPath);
       }
       return config;

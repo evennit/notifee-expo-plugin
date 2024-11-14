@@ -29,6 +29,7 @@ const withNotifee: ConfigPlugin<NotifeeExpoPluginProps> = (c, props) => {
   c = NotifeeIos.addNotifeeTargetToExpoAppExtensions(c, props);
   c = NotifeeIos.createAndAddNotificationServiceExtensionTarget(c, props);
   c = NotifeeIos.signAppAndNotificationServiceExtension(c, props);
+  c = NotifeeIos.addSoundsToFolder(c, props);
 
   return c;
 };

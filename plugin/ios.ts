@@ -1,5 +1,13 @@
 import { NotifeeExpoPluginProps } from "./types";
-import { ConfigPlugin, withDangerousMod, withEntitlementsPlist, withInfoPlist, withXcodeProject } from "@expo/config-plugins";
+import {
+  ConfigPlugin,
+  IOSConfig,
+  withDangerousMod,
+  withEntitlementsPlist,
+  withInfoPlist,
+  withXcodeProject,
+  XcodeProject,
+} from "@expo/config-plugins";
 import * as fs from "fs";
 import * as path from "path";
 import {
@@ -20,6 +28,8 @@ import {
   USER_ACTIVITY_TYPES_KEYS,
 } from "./config";
 import { log, logError, throwError } from "./utils";
+import { basename, resolve } from "path";
+import { copyFileSync } from "fs";
 
 /**
  * Adds Notifee to the iOS Podfile within an Expo project configuration.
@@ -315,6 +325,56 @@ const addNotifeeTargetToExpoAppExtensions: ConfigPlugin<NotifeeExpoPluginProps> 
   };
 };
 
+const addSoundsToFolder: ConfigPlugin<NotifeeExpoPluginProps> = (config, props) => {
+  if (!props.sounds || props.sounds.length === 0) return config;
+  return withXcodeProject(config, (config) => {
+    setNotificationSounds(config.modRequest.projectRoot, {
+      sounds: props.sounds,
+      project: config.modResults,
+      projectName: config.modRequest.projectName,
+    });
+    return config;
+  });
+};
+
+function setNotificationSounds(
+  projectRoot: string,
+  { sounds, project, projectName }: { sounds?: string[]; project: XcodeProject; projectName: string | undefined },
+): XcodeProject {
+  if (!projectName) {
+    throw new Error(`An error occurred while configuring iOS notifications. Unable to find iOS project name.`);
+  }
+  if (!Array.isArray(sounds)) {
+    throw new Error(
+      `An error occurred while configuring iOS notifications.Must provide an array of sound files in your app config, found ${typeof sounds}.`,
+    );
+  }
+  const sourceRoot = IOSConfig.Paths.getSourceRoot(projectRoot);
+  if (!sounds) {
+    return project;
+  }
+
+  for (const soundFileRelativePath of sounds) {
+    const fileName = basename(soundFileRelativePath);
+    const sourceFilepath = resolve(projectRoot, soundFileRelativePath);
+    const destinationFilepath = resolve(sourceRoot, fileName);
+
+    // Since it's possible that the filename is the same, but the
+    // file itself id different, let's copy it regardless
+    copyFileSync(sourceFilepath, destinationFilepath);
+    if (!project.hasFile(`${projectName}/${fileName}`)) {
+      project = IOSConfig.XcodeUtils.addResourceFileToGroup({
+        filepath: `${projectName}/${fileName}`,
+        groupName: projectName,
+        isBuildFile: true,
+        project,
+      });
+    }
+  }
+
+  return project;
+}
+
 export default {
   setAPSEnvironment,
   addCommunicationNotificationsCapability,
@@ -325,4 +385,5 @@ export default {
   createAndAddNotificationServiceExtensionTarget,
   addNotifeeTargetToExpoAppExtensions,
   addNotificationServiceGroup,
+  addSoundsToFolder,
 };
