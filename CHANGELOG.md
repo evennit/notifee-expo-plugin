@@ -1,5 +1,11 @@
 # Changelog
 
+## `[3.7.3]` - 2025-11-02
+
+### Changes
+
+- Patch to fix resolving issues when using the plugin in a monorepo structure
+
 ## `[3.7.1]` - 2024-10-24
 
 ### Changes
