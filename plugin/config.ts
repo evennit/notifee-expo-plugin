@@ -15,9 +15,10 @@ export const FILES_TO_ADD = [
 ];
 
 export const PODFILE_MODIF_NEEDED = `
+podSpec = File.join(File.dirname(\`node --print "require.resolve('@notifee/react-native/package.json')"\`), "RNNotifeeCore.podspec")
 $NotifeeExtension = true
 target 'NotifeeNotificationServiceExtension' do
-  pod 'RNNotifeeCore', :path => '../node_modules/@notifee/react-native/RNNotifeeCore.podspec'
+  pod 'RNNotifeeCore', :path => podSpec
   use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
 end`;
 export const PODFILE_TARGET_STRING = "target 'NotifeeNotificationServiceExtension'";

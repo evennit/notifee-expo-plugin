@@ -57,10 +57,8 @@ const addNotifeeToPodfile: ConfigPlugin<NotifeeExpoPluginProps> = (c) => {
  * @returns {object} - The updated Expo configuration object after adding the notification service files.
  */
 const addNotificationServiceFilesToProject: ConfigPlugin<NotifeeExpoPluginProps> = (c, props) => {
-  const serviceExtensionFilesFolderPath = path.join(
-    path.resolve("node_modules/" + PACKAGE_NAME + "/package.json"),
-    "../dist/ios-notification-service-files/",
-  );
+  const packageRoot = path.dirname(require.resolve(PACKAGE_NAME + "/package.json"));
+  const serviceExtensionFilesFolderPath = path.join(packageRoot, "dist/ios-notification-service-files/");
 
   const updatedConfig = withDangerousMod(c, [
     "ios",
