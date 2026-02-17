@@ -66,4 +66,11 @@ export type NotifeeExpoPluginProps = {
    * the necessary configurations for Notifee along with any additional customizations.
    */
   customNotificationServiceFilePath?: string;
+
+  /**
+   * Enables verbose logging output during the plugin configuration process.
+   * When set to true, the plugin will log detailed information about each step.
+   * Defaults to false.
+   */
+  verbose?: boolean;
 };

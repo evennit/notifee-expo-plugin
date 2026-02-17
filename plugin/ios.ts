@@ -16,7 +16,6 @@ import {
   PACKAGE_NAME,
   PODFILE_MODIF_NEEDED,
   PODFILE_TARGET_STRING,
-  TARGET_DEVICES,
   USER_ACTIVITY_TYPES_KEYS,
 } from "./config";
 import { log, logError, throwError } from "./utils";
@@ -27,7 +26,7 @@ import { log, logError, throwError } from "./utils";
  * @param {object} c - The Expo configuration object.
  * @returns {object} - The updated Expo configuration object after modifying the Podfile.
  */
-const addNotifeeToPodfile: ConfigPlugin<NotifeeExpoPluginProps> = (c) => {
+const addNotifeeToPodfile: ConfigPlugin<NotifeeExpoPluginProps> = (c, props) => {
   return withDangerousMod(c, [
     "ios",
     async (c) => {
@@ -39,7 +38,7 @@ const addNotifeeToPodfile: ConfigPlugin<NotifeeExpoPluginProps> = (c) => {
         //Add at end of podfile
         if (!hasAlreadyNeededChanges) fs.appendFileSync(pathToPodfile, PODFILE_MODIF_NEEDED);
 
-        log("Added Notifee to Podfile");
+        log("Added Notifee to Podfile", props.verbose);
       } catch {
         throwError("Error when trying to add Notifee to Podfile");
       }
@@ -97,7 +96,7 @@ const addNotificationServiceFilesToProject: ConfigPlugin<NotifeeExpoPluginProps>
         const notificationServiceFile = fs.readFileSync(notificationServicePath);
         fs.writeFileSync(pathWhereToWriteNotificationService, notificationServiceFile);
 
-        log("Added NotificationService files!");
+        log("Added NotificationService files!", props.verbose);
       } catch {
         logError("Error while copying notification service files");
       }
@@ -135,7 +134,7 @@ const signAppAndNotificationServiceExtension: ConfigPlugin<NotifeeExpoPluginProp
     //Sign notification service extension target
     const target = xcodeProject.pbxTargetByName(EXTENSION_SERVICE_NAME);
     if (target) xcodeProject.addTargetAttribute("DevelopmentTeam", props.appleDevTeamId, target);
-    log("Signed the main app and notification service extension targets with: " + props.appleDevTeamId);
+    log("Signed the main app and notification service extension targets with: " + props.appleDevTeamId, props.verbose);
 
     return nc;
   });
@@ -152,7 +151,7 @@ const setAPSEnvironment: ConfigPlugin<NotifeeExpoPluginProps> = (c, props) => {
   return withEntitlementsPlist(c, (nc) => {
     nc.modResults["aps-environment"] = props.apsEnvMode;
 
-    log("Set aps-environment to: " + props.apsEnvMode);
+    log("Set aps-environment to: " + props.apsEnvMode, props.verbose);
     return nc;
   });
 };
@@ -163,7 +162,7 @@ const setAPSEnvironment: ConfigPlugin<NotifeeExpoPluginProps> = (c, props) => {
  * @param {object} c - The Expo configuration object.
  * @returns {object} - The updated Expo configuration object with added application group entitlement.
  */
-const addNotificationServiceGroup: ConfigPlugin<NotifeeExpoPluginProps> = (c) => {
+const addNotificationServiceGroup: ConfigPlugin<NotifeeExpoPluginProps> = (c, props) => {
   return withEntitlementsPlist(c, (nc) => {
     const g = "com.apple.security.application-groups";
     if (!Array.isArray(nc.modResults[g])) nc.modResults[g] = [];
@@ -171,7 +170,7 @@ const addNotificationServiceGroup: ConfigPlugin<NotifeeExpoPluginProps> = (c) =>
     const modResults = nc.modResults[g];
     if (!modResults.includes(gName)) modResults.push(gName);
 
-    log(`Added '${gName} to com.apple.security.application-groups`);
+    log(`Added '${gName} to com.apple.security.application-groups`, props.verbose);
     return nc;
   });
 };
@@ -189,7 +188,7 @@ const addBackgroundModes: ConfigPlugin<NotifeeExpoPluginProps> = (c, props) => {
     if (!Array.isArray(nc.modResults.UIBackgroundModes)) nc.modResults.UIBackgroundModes = [];
     if (!props.backgroundModes) props.backgroundModes = BACKGROUND_MODES_TO_ENABLE;
     for (const mode of props.backgroundModes) if (!nc.modResults.UIBackgroundModes.includes(mode)) nc.modResults.UIBackgroundModes.push(mode);
-    log("Added background modes (" + props.backgroundModes.join(", ") + ")");
+    log("Added background modes (" + props.backgroundModes.join(", ") + ")", props.verbose);
     return nc;
   });
 };
@@ -207,7 +206,7 @@ const addCommunicationNotificationsCapability: ConfigPlugin<NotifeeExpoPluginPro
 
   const updatedConfig = withEntitlementsPlist(c, (nc) => {
     if (props.enableCommunicationNotifications) nc.modResults["com.apple.developer.usernotifications.communication"] = true;
-    log("Added communication notifications capability");
+    log("Added communication notifications capability", props.verbose);
     return nc;
   });
 
@@ -216,7 +215,7 @@ const addCommunicationNotificationsCapability: ConfigPlugin<NotifeeExpoPluginPro
     for (const v of USER_ACTIVITY_TYPES_KEYS) {
       if (!nc.modResults.NSUserActivityTypes.includes(v)) nc.modResults.NSUserActivityTypes.push(v);
     }
-    log("Added INSendMessageIntent to NSUserActivityTypes for communication notifications");
+    log("Added INSendMessageIntent to NSUserActivityTypes for communication notifications", props.verbose);
     return nc;
   });
 };
@@ -256,7 +255,7 @@ const createAndAddNotificationServiceExtensionTarget: ConfigPlugin<NotifeeExpoPl
       if (!!config[v].buildSettings && config[v].buildSettings.PRODUCT_NAME === `"${EXTENSION_SERVICE_NAME}"`)
         config[v].buildSettings = {
           ...config[v].buildSettings,
-          TARGETED_DEVICE_FAMILY: TARGET_DEVICES,
+          TARGETED_DEVICE_FAMILY: c.ios?.supportsTablet ? '"1,2"' : '"1"',
           IPHONEOS_DEPLOYMENT_TARGET: props.iosDeploymentTarget ?? DEFAULT_IOS_DEPLOYMENT_TARGET,
           DEVELOPMENT_TEAM: props.appleDevTeamId,
           CODE_SIGN_ENTITLEMENTS: `${EXTENSION_SERVICE_NAME}/${EXTENSION_SERVICE_NAME}.entitlements`,
@@ -269,7 +268,7 @@ const createAndAddNotificationServiceExtensionTarget: ConfigPlugin<NotifeeExpoPl
         };
     }
 
-    log(`Created Notification Service Extension (${newTargetBundleIdentifier})`);
+    log(`Created Notification Service Extension (${newTargetBundleIdentifier})`, props.verbose);
     return nc;
   });
 };

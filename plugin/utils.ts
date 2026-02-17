@@ -25,6 +25,8 @@ export const validateProps = (props: NotifeeExpoPluginProps) => {
   if (props.androidIcons && !Array.isArray(props.androidIcons)) throwError("'androidIcons' needs to be an array!");
 
   if (props.backgroundModes && !Array.isArray(props.backgroundModes)) throwError("'backgroundModes' needs to be an array!");
+
+  if (props.verbose && typeof props.verbose !== "boolean") throwError("'verbose' needs to be a boolean!");
 };
 
 /**
@@ -39,11 +41,13 @@ export const throwError = (message: string) => {
 
 /**
  * Logs a message to the console with the package name prefixed.
+ * Only logs if verbose mode is enabled.
  *
  * @param {string} message - The message to log.
+ * @param {boolean} verbose - Whether to output the log message.
  */
-export const log = (message: string) => {
-  console.log(`${PACKAGE_NAME}: ` + message);
+export const log = (message: string, verbose?: boolean) => {
+  if (verbose) console.log(`${PACKAGE_NAME}: ` + message);
 };
 
 /**

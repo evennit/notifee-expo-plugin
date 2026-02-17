@@ -2,8 +2,6 @@
 export const DEFAULT_IOS_BUILD_NUMBER = "1";
 export const DEFAULT_APP_VERSION = "1.0.0";
 export const DEFAULT_IOS_DEPLOYMENT_TARGET = "13.4";
-export const TARGET_DEVICES = '"1,2"'; // IPHONE / IPAD
-
 export const PACKAGE_NAME = "@evennit/notifee-expo-plugin";
 
 export const EXTENSION_SERVICE_NAME = "NotifeeNotificationServiceExtension";

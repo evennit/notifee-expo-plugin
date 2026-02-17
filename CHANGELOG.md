@@ -1,5 +1,12 @@
 # Changelog
 
+## `[3.8.0]` - 2025-12-03
+
+### Changes
+
+- New `verbose` prop to control logging output during the plugin configuration process. Logs are now disabled by default. Set `verbose: true` to see plugin logs.
+- The notification service extension's `TARGETED_DEVICE_FAMILY` now respects the Expo config's `ios.supportsTablet` setting instead of always targeting both iPhone and iPad.
+
 ## `[3.7.3]` - 2025-11-02
 
 ### Changes

@@ -83,18 +83,16 @@ Now you should be good to go!
 | `appleDevTeamId?: string`                    | Automatically signs the app and the notification service extension targets with the provided Apple developer team ID.                                                                                                                                                                                                                                                                    |
 | `customNotificationServiceFilePath?: string` | Specifies the path to a custom notification service file, which should already include the necessary configurations for Notifee along with any additional customizations. You can build upon the default NotificationService.m file of this package. <br/> Ex: `"./assets/notifee/NotificationService.m"`.                                                                               |
 | `backgroundModes?: string[]`                 | Specifies the background modes to enable for the app. If not provided, the default value will be: `["remote-notification"]`. On the other hand, an empty array `[]` will signal to the plugin to skip the backgroundModes step completly. iOS only.<br/> See possible values here: https://developer.apple.com/documentation/bundleresources/information_property_list/uibackgroundmodes |
+| `verbose?: boolean`                          | Enables verbose logging output during the plugin configuration process. When set to `true`, the plugin will log detailed information about each step. Defaults to `false`.                                                                                                                                                                                                               |
 
 ## 🤩 STARS 🤩
 
-If this was of any use to you, feel OBLIGATED to give it a 🌟 :))))).
+If this was of any use to you, give it a 🌟 :)
 
-## 💸 if (feelingGrateful && hasABuckToGive) 💸
+## 💸 Feeling grateful and want to support me 💸
 
 <p style="font-size:1.5em;">You can support me via <a href="https://ko-fi.com/kevpug">ko-fi</a>.</p>
 
-<p style="font-size:0.69em;">Shameless plug because I kinda need money for my startup. 🥺</p>
-
-<h6></h6>
 
 ## 📜 License 📜
 
